@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.config;
+package com.extension.factcheck.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

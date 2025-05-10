@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.config.security;
+package com.extension.factcheck.infrastructure;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;

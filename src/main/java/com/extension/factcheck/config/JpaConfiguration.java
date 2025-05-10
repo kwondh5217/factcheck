@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.config;
+package com.extension.factcheck.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

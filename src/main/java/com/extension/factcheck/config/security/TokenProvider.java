@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.config.security;
+package com.extension.factcheck.config.security;
 
 
 import io.jsonwebtoken.Jwts;

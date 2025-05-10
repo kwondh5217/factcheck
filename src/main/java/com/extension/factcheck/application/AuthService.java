@@ -1,7 +1,9 @@
-package com.factcheck.factcheck.config.security;
+package com.extension.factcheck.application;
 
-import com.factcheck.factcheck.domain.User;
-import com.factcheck.factcheck.domain.UserRepository;
+import com.extension.factcheck.infrastructure.GoogleIdVerifier;
+import com.extension.factcheck.config.security.TokenProvider;
+import com.extension.factcheck.domain.User;
+import com.extension.factcheck.domain.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

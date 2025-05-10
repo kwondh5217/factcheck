@@ -1,6 +1,6 @@
-package com.factcheck.factcheck.api;
+package com.extension.factcheck.api;
 
-import com.factcheck.factcheck.config.security.AuthService;
+import com.extension.factcheck.application.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

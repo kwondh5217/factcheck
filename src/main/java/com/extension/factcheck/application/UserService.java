@@ -1,7 +1,7 @@
-package com.factcheck.factcheck.application;
+package com.extension.factcheck.application;
 
-import com.factcheck.factcheck.domain.User;
-import com.factcheck.factcheck.domain.UserRepository;
+import com.extension.factcheck.domain.User;
+import com.extension.factcheck.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

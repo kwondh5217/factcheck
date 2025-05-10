@@ -1,4 +1,4 @@
-package com.factcheck.factcheck;
+package com.extension.factcheck;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

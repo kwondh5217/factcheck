@@ -1,4 +1,4 @@
-package com.factcheck.factcheck;
+package com.extension.factcheck;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

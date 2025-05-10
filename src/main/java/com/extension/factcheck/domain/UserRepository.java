@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.domain;
+package com.extension.factcheck.domain;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

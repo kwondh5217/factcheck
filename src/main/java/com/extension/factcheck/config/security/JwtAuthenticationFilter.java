@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.config.security;
+package com.extension.factcheck.config.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

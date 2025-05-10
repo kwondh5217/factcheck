@@ -1,4 +1,4 @@
-package com.factcheck.factcheck.domain;
+package com.extension.factcheck.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
