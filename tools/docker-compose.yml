@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: factcheck-mysql
+    image: public.ecr.aws/ubuntu/mysql:edge
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=factcheck
+      - MYSQL_DATABASE=factcheck
+      - MYSQL_USER=factcheck
+      - MYSQL_PASSWORD=factcheck
+      - TZ=UTC
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+volumes:
+  mysql-data:
