@@ -8,6 +8,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("org.jlleitschuh.gradle.ktlint-idea") version "11.0.0"
+    id("org.flywaydb.flyway") version "7.8.2"
 }
 
 group = "com.factcheck"
@@ -25,6 +26,17 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
+ktlint {
+    disabledRules.apply {
+        add("import-ordering")
+        add("no-wildcard-imports")
+        add("indent")
+    }
+    filter {
+        exclude("*.kts")
+        exclude("**/generated/**")
+    }
+}
 
 java {
     toolchain {
@@ -48,8 +60,6 @@ dependencies {
     implementation("com.google.api-client:google-api-client:2.7.2")
     implementation("com.google.http-client:google-http-client-jackson2:1.47.0")
     implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
-    implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-mysql")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.apache.commons:commons-pool2:2.11.1")
     implementation("mysql:mysql-connector-java:8.0.32")
@@ -91,4 +101,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "21"
     }
+}
+
+flyway {
+    url = "jdbc:mysql://localhost:3306/factcheck?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    user = "factcheck"
+    password = "factcheck"
 }

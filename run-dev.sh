@@ -17,5 +17,5 @@ until docker exec factcheck-mysql mysqladmin ping -h "localhost" --silent; do
 done
 
 echo "✅ MySQL is ready. Starting Spring Boot application..."
-
+./gradlew flywayClean flywayMigrate
 ./gradlew bootRun --args='--spring.profiles.active=local'

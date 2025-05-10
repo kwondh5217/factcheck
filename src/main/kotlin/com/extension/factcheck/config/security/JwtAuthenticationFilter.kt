@@ -43,7 +43,6 @@ class JwtAuthenticationFilter(
                 context.authentication = authentication
                 SecurityContextHolder.setContext(context)
             }
-
         } catch (ex: Exception) {
             log.error("Could not set user authentication in security context", ex)
         }
