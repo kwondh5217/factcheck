@@ -1,7 +1,7 @@
 package com.extension.factcheck.application
 
 import com.extension.factcheck.domain.User
-import com.extension.factcheck.domain.UserRepository
+import com.extension.factcheck.infrastructure.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
