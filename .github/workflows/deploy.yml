@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17.0.15
+          java-version: 17.0.6
 
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x ./gradlew
@@ -44,10 +44,13 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: JWT_SECRET,CHROME_CLIENT_ID,SPRING_DATASOURCE_USERNAME,SPRING_DATASOURCE_PASSWORD
           script: |
-            IMAGE=$DOCKER_IMAGE:${{ github.sha }}
+            IMAGE="${{ env.DOCKER_IMAGE }}:${{ github.sha }}"
             docker pull $IMAGE
             docker create --name temp $IMAGE
-            docker cp temp:/app/tools/docker-compose.yml ./docker-compose.yml
+            docker cp temp:/app/tools/docker-compose.deploy.yml ./docker-compose.yml
             docker rm temp
-            docker compose up -d
+            sed -i "s|\${TAG}|${{ github.sha }}|g" docker-compose.yml
+            docker rm -f factcheck-api || true
+            docker-compose --env-file .env.deploy up -d --force-recreate

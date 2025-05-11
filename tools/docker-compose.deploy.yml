@@ -1,0 +1,55 @@
+version: '3.8'
+
+networks:
+  network:
+
+volumes:
+  factcheck-mysql:
+  factcheck-redis:
+
+services:
+  mysql:
+    container_name: factcheck-mysql
+    image: public.ecr.aws/ubuntu/mysql:edge
+    networks:
+      - network
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=factcheck
+      - MYSQL_DATABASE=factcheck
+      - MYSQL_USER=factcheck
+      - MYSQL_PASSWORD=factcheck
+      - TZ=UTC
+    volumes:
+      - factcheck-mysql:/var/lib/mysql
+      - ./mysql/init.sql:/data/application/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+
+  redis:
+    container_name: factcheck-redis
+    image: public.ecr.aws/docker/library/redis:7-alpine
+    networks:
+      - network
+    ports:
+      - 6379:6379
+    volumes:
+      - factcheck-redis:/data
+
+  api:
+    container_name: factcheck-api
+    image: fachcheck/factcheck-api:${TAG}
+    ports:
+      - "8080:8080"
+    networks:
+      - network
+    depends_on:
+      - mysql
+      - redis
+    env_file:
+      - .env.deploy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
