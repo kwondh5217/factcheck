@@ -26,7 +26,7 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
-                it.requestMatchers("/login/chrome/**").permitAll()
+                it.requestMatchers("/v1/auth/**").permitAll()
                     .anyRequest().authenticated()
             }
             .exceptionHandling {
