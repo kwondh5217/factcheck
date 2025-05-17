@@ -10,7 +10,6 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,6 +22,31 @@ jobs:
 
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x ./gradlew
+
+      - name: Start MySQL in background (for migration)
+        run: |
+          docker run -d \
+            --name temp-factcheck-mysql \
+            -e MYSQL_ROOT_PASSWORD=factcheck \
+            -e MYSQL_DATABASE=factcheck \
+            -e MYSQL_USER=factcheck \
+            -e MYSQL_PASSWORD=factcheck \
+            -p 3306:3306 \
+            mysql:8 --default-authentication-plugin=mysql_native_password
+
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be healthy..."
+          for i in {1..20}; do
+            docker exec temp-factcheck-mysql mysqladmin ping -h 127.0.0.1 --silent && break
+            sleep 5
+          done
+
+      - name: Run Flyway migrations via Gradle
+        run: ./gradlew flywayMigrate
+
+      - name: Stop temporary MySQL
+        run: docker rm -f temp-factcheck-mysql
 
       - name: Build with Gradle
         run: ./gradlew build -x test
