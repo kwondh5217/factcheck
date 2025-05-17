@@ -38,3 +38,18 @@ services:
       - 6379:6379
     volumes:
       - factcheck-redis:/data
+
+  api:
+    container_name: factcheck-api
+    image: fachcheck/factcheck-api:${TAG}
+    ports:
+      - "8080:8080"
+    networks:
+      - network
+    depends_on:
+      - mysql
+      - redis
+    env_file:
+      - .env.deploy
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod

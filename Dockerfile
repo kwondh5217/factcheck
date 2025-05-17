@@ -2,23 +2,13 @@ FROM eclipse-temurin:17.0.6_10-jdk-alpine
 
 WORKDIR /app
 
-# 1. Gradle wrapper 파일 복사
-COPY gradlew gradlew
-COPY gradle gradle
+# 전체 프로젝트 복사
+COPY . .
 
-# 2. Jar 파일 복사
-COPY build/libs/*.jar app.jar
-
-# 3. entrypoint.sh 복사
-COPY tools/entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-
-# 4. Gradle 실행 권한
+# Gradle 및 entrypoint 실행 권한 부여
 RUN chmod +x gradlew
-
-# 5. Docker Compose 파일 복사 (EC2에서 필요)
-COPY tools/docker-compose.deploy.yml /app/tools/docker-compose.deploy.yml
+RUN chmod +x /app/tools/entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/tools/entrypoint.sh"]
