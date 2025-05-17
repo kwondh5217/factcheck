@@ -52,5 +52,7 @@ jobs:
             docker cp temp:/app/tools/docker-compose.deploy.yml ./docker-compose.yml
             docker rm temp
             sed -i "s|\${TAG}|${{ github.sha }}|g" docker-compose.yml
+            
+            ./gradlew flywayMigrate || echo "Flyway migration failed"
             docker-compose --env-file .env.deploy down --remove-orphans
             docker-compose --env-file .env.deploy up -d --force-recreate
