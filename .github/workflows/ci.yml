@@ -61,7 +61,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: Copy compose file
-        run: cp ./tools/docker-compose.yml ./docker-compose.yml
+        run: cp ./tools/docker-compose-local.yml ./docker-compose.yml
 
       - name: Start containers
         run: docker compose up -d
