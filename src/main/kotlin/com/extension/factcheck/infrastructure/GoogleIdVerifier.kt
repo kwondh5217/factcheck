@@ -4,20 +4,16 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class GoogleIdVerifier(
-    @Value("\${chrome.client.id}")
-    private val clientId: String,
-) {
+class GoogleIdVerifier {
     private val transport = NetHttpTransport()
     private val jsonFactory = GsonFactory.getDefaultInstance()
 
     private val verifier: GoogleIdTokenVerifier = GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-        .setAudience(listOf(clientId))
+        .setAudience(listOf("1056347669242-2agi9u11ic8sjcq299gdch9uadqel7pb.apps.googleusercontent.com"))
         .build()
 
     @Transactional
