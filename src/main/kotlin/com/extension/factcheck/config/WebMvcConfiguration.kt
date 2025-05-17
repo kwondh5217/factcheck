@@ -16,7 +16,7 @@ class WebMvcConfiguration(
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**") // 모든 경로에 대하여
             .allowedOrigins(
-                "chrome-extension://$clientId",
+                "chrome-extension://nhggehajihflgpgghbipiikajjigaikg"
             )
             .allowedMethods(
                 "GET",
