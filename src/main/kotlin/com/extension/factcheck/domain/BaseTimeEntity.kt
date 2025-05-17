@@ -7,16 +7,16 @@ import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.io.Serial
 import java.io.Serializable
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class BaseTimeEntity : Serializable {
     @CreatedDate
-    lateinit var dateCreated: OffsetDateTime
+    lateinit var dateCreated: LocalDateTime
 
     @LastModifiedDate
-    lateinit var dateUpdated: OffsetDateTime
+    lateinit var dateUpdated: LocalDateTime
 
     companion object {
         @Serial
