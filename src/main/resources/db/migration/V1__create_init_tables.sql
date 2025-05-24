@@ -7,18 +7,18 @@ CREATE TABLE `users`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-    COMMENT 'User';
+    COMMENT '회원';
 
 
-CREATE TABLE `factcheck_results`
+CREATE TABLE `analyze_results`
 (
     `id`                     BIGINT       NOT NULL AUTO_INCREMENT,
     `api_usage_log_id`       BIGINT       NOT NULL COMMENT '요청 ID',
     `model_used`             VARCHAR(100) NOT NULL COMMENT '사용한 AI 모델명 (예: gpt-4-turbo)',
     `url`                    TEXT         NOT NULL COMMENT '요청한 문서 URL',
     `url_hash`               VARCHAR(64)  NOT NULL COMMENT '요청 URL의 SHA-256 해시',
-    `url_last_modified`      DATETIME(6)  NOT NULL COMMENT '요청한 문서가 마지막으로 수정된 일시',
-    `summary`                TEXT         NOT NULL COMMENT '요약 결과',
+    `content_hash`           VARCHAR(64)  NOT NULL COMMENT '제목 + 내용의 SHA-256 해시(변경 여부 확인용)',
+    `summary`                TEXT         NOT NULL COMMENT '분석 결과',
     `token_usage`            INT          DEFAULT NULL COMMENT 'AI 토큰 사용량',
     `response_time_ms`       INT          DEFAULT NULL COMMENT '응답 시간 (ms)',
     `date_created`           DATETIME(6)  NOT NULL COMMENT '등록일시',
@@ -27,7 +27,7 @@ CREATE TABLE `factcheck_results`
     KEY                     `idx_url_hash` (`url_hash`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COMMENT 'FactCheck 결과 캐시';
+  COMMENT '분석 결과 캐시';
 
 CREATE TABLE `api_usage_logs`
 (

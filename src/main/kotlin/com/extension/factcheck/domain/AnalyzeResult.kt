@@ -8,9 +8,9 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
-@Table(name = "factcheck_results")
+@Table(name = "analyze_results")
 @Entity
-class FactcheckResult(
+class AnalyzeResult(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
@@ -22,6 +22,8 @@ class FactcheckResult(
     var url: String,
     @Column(name = "url_hash", length = 64, nullable = false)
     var urlHash: String,
+    @Column(name = "content_hash", length = 64, nullable = false)
+    var contentHash: String,
     @Column(name = "url_last_modified", nullable = false)
     var urlLastModified: LocalDateTime,
     @Column(name = "summary", columnDefinition = "TEXT", nullable = false)
