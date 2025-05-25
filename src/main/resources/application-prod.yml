@@ -19,3 +19,9 @@ jwt:
 chrome:
   client:
     id: ${CHROME_CLIENT_ID}
+
+groq:
+  api:
+    key: ${GROQ_API_KEY}
+    model: llama-3.3-70b-versatile
+
