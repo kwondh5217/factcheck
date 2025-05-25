@@ -23,5 +23,4 @@ class PromptProvider {
             $content
         """.trimIndent()
     }
-
 }
