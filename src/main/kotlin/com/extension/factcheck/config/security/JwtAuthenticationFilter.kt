@@ -30,11 +30,13 @@ class JwtAuthenticationFilter(
             val token = parseBearerToken(request)
 
             if (token != null && "null".equals(token, ignoreCase = true).not()) {
-                val userId = tokenProvider.validateAndGetUserId(token)
-                log.info("Authenticated user ID: {}", userId)
+                val payload = tokenProvider.validateAndGetClaims(token)
+                log.info("Authenticated user ID: {}, role: {}", payload.userId, payload.role)
 
                 val authentication = UsernamePasswordAuthenticationToken(
-                    userId, null, AuthorityUtils.NO_AUTHORITIES,
+                    payload.userId,
+                    null,
+                    AuthorityUtils.createAuthorityList(payload.role)
                 )
 
                 authentication.details = WebAuthenticationDetailsSource().buildDetails(request)

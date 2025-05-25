@@ -26,24 +26,34 @@ class TokenProvider {
         secretKey = Keys.hmacShaKeyFor(keyBytes)
     }
 
-    fun create(userId: String): String {
+    fun create(userId: String, grade: String): String {
         val expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.HOURS))
 
         return Jwts.builder()
             .subject(userId)
+            .claim("role", "ROLE_$grade")
             .issuedAt(Date())
             .expiration(expiryDate)
             .signWith(secretKey)
             .compact()
     }
 
-    fun validateAndGetUserId(token: String): String {
-        return Jwts
+    fun validateAndGetClaims(token: String): JwtPayload {
+        val claims = Jwts
             .parser()
             .verifyWith(secretKey)
             .build()
             .parseSignedClaims(token)
             .payload
-            .subject
+
+        val userId = claims.subject
+        val role = claims["role"] as? String ?: "ROLE_FREE"
+
+        return JwtPayload(userId, role)
     }
 }
+
+data class JwtPayload(
+    val userId: String,
+    val role: String
+)
