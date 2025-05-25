@@ -73,6 +73,8 @@ jobs:
             docker exec factcheck-mysql mysqladmin ping -h 127.0.0.1 --silent && break
             sleep 5
           done
+      - name: Run Flyway clean
+        run: ./gradlew flywayClean
 
       - name: Run Flyway migrations
         run: ./gradlew flywayMigrate
