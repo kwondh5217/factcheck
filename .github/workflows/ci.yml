@@ -42,6 +42,7 @@ jobs:
     env:
       JWT_SECRET: ${{ secrets.EC2_DEPLOY_JWT_SECRET }}
       CHROME_CLIENT_ID: ${{ secrets.EC2_DEPLOY_CLIENT_ID }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
