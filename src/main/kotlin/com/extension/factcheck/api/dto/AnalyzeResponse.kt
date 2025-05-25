@@ -6,5 +6,4 @@ class AnalyzeResponse(
     val rationale: String,
     val framing: String?,
     val uncertainStatements: List<String>
-) {
-}
+)
