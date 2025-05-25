@@ -44,7 +44,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: JWT_SECRET,CHROME_CLIENT_ID,SPRING_DATASOURCE_USERNAME,SPRING_DATASOURCE_PASSWORD
+          envs: JWT_SECRET,CHROME_CLIENT_ID,SPRING_DATASOURCE_USERNAME,SPRING_DATASOURCE_PASSWORD,GROQ_API_KEY
           script: |
             IMAGE="${{ env.DOCKER_IMAGE }}:${{ github.sha }}"
             docker pull $IMAGE
@@ -52,5 +52,14 @@ jobs:
             docker cp temp:/app/tools/docker-compose.deploy.yml ./docker-compose.yml
             docker rm temp
             sed -i "s|\${TAG}|${{ github.sha }}|g" docker-compose.yml
+            
+            cat <<EOF > .env.deploy
+            JWT_SECRET=${JWT_SECRET}
+            CHROME_CLIENT_ID=${CHROME_CLIENT_ID}
+            SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+            SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+            GROQ_API_KEY=${GROQ_API_KEY}
+            EOF
+            
             docker-compose --env-file .env.deploy down -v --remove-orphans
             docker-compose --env-file .env.deploy up -d --force-recreate
