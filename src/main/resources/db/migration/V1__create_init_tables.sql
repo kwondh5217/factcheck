@@ -9,6 +9,19 @@ CREATE TABLE `users`
   DEFAULT CHARSET = utf8mb4
     COMMENT '회원';
 
+CREATE TABLE `user_memberships`
+(
+    `id`             BIGINT         NOT NULL AUTO_INCREMENT,
+    `user_id`        BIGINT         NOT NULL COMMENT '회원 ID',
+    `grade`          VARCHAR(20)    NOT NULL DEFAULT 'FREE' COMMENT '회원 등급 (FREE, PREMIUM)',
+    `date_created`   DATETIME(6)    NOT NULL COMMENT '등록일시',
+    `date_updated`   DATETIME(6)    NOT NULL COMMENT '수정일시',
+    PRIMARY KEY (`id`),
+    KEY `idx_user_id` (`user_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COMMENT = '회원 멤버십 정보';
+
 
 CREATE TABLE `analyze_results`
 (
@@ -41,3 +54,4 @@ CREATE TABLE `api_usage_logs`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COMMENT 'API 사용 기록';
+
